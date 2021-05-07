@@ -3,8 +3,8 @@
 Adafruit_NeoPixel strip(32,10, NEO_GRB + NEO_KHZ800);
 
 
-int hours = 6;
-int minutes = 33;
+int hours = 4;
+int minutes = 44;
 int seconds = 0;
 int pixels = strip.numPixels();
 
@@ -66,7 +66,7 @@ void showPixels(){
   strip.clear();
   if(start){
     splitStrip(255,255,255,30);
-    findPositions(50);
+    findPos(25);
   }
 
 //  strip.setPixelColor(secPos(seconds)-1, 255,0,0);
@@ -146,43 +146,45 @@ void findPos(int SpeedDelay){
 
   
   for(int i = 0; i <= hour; i++){
-    strip.setPixelColor(i-1, strip.Color(0,0,0));
+    strip.setPixelColor(i-2, strip.Color(0,0,0));
+    strip.setPixelColor(i-1, strip.Color(0,0,100));
     strip.setPixelColor(i, strip.Color(0,0,255));
     strip.show();
     delay(SpeedDelay);
   }
+  strip.clear();
+  strip.setPixelColor(hour, strip.Color(0,0,255));
 
   for(int i = 0; i <= minute; i++){
-    if(i == hour + 1){
-      strip.setPixelColor(i-1, strip.Color(0,0,255));
-      strip.setPixelColor(i, strip.Color(0,255,0)); 
-    }else if(i == hour){
-      strip.setPixelColor(i-1, strip.Color(0,0,0));
-      strip.setPixelColor(i, strip.Color(0,255,255));
-    }else{
-      strip.setPixelColor(i-1, strip.Color(0,0,0));
-      strip.setPixelColor(i, strip.Color(0,255,0));
-    }
-    strip.show();
-    delay(SpeedDelay);
-  }
-
-  for(int i = 0; i < second; i++){
-    if(i == hour + 1 == minute + 1){
-      strip.setPixelColor(i-1, strip.Color(0,255,255));
-      strip.setPixelColor(i, strip.Color(255,0,0));
-    }else if(i == hour || i == minute){
-      strip.setPixelColor(i-1, strip.Color(0,0,0));
-    }else{
-      strip.setPixelColor(i-1, strip.Color(0,0,0));
-      strip.setPixelColor(i, strip.Color(255,0,0));
-    }
+    strip.setPixelColor(i-2, strip.Color(0,0,0));
+    strip.setPixelColor(i-1, strip.Color(0,100,0));
+    strip.setPixelColor(i, strip.Color(0,255,0));
+    strip.setPixelColor(hour, strip.Color(0,0,255));
     strip.show();
     delay(SpeedDelay);
   }
   strip.clear();
+  strip.setPixelColor(hour, strip.Color(0,0,255));
+  strip.setPixelColor(minute, strip.Color(0,255,0));
+  
+  for(int i = 0; i <= second; i++){
+      strip.setPixelColor(i-2, strip.Color(0,0,0));
+      strip.setPixelColor(i-1, strip.Color(100,0,0));
+      strip.setPixelColor(i, strip.Color(255,0,0));
+      strip.setPixelColor(hour, strip.Color(0,0,255));
+      strip.setPixelColor(minute, strip.Color(0,255,0));
+      strip.show();
+      delay(SpeedDelay);
+    }
+
+  strip.clear();
+  strip.setPixelColor(hour, strip.Color(0,0,255));
+  strip.setPixelColor(minute, strip.Color(0,255,0));
+  strip.setPixelColor(second, strip.Color(255,0,0));
   start = false;
 }
+
+
 
 void findPositions(int SpeedDelay){
   strip.clear();
@@ -280,4 +282,5 @@ void findPositions(int SpeedDelay){
   strip.setPixelColor(hour, strip.Color(0,0,255));
   strip.setPixelColor(minute, strip.Color(0,255,0));
   strip.setPixelColor(second, strip.Color(255,0,0));
+  start = false;
 }
